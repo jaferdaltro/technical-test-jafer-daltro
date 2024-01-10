@@ -30,7 +30,7 @@ namespace :populate_movies do
     10.times do
       Movie.create(
         title: Faker::Movie.title,
-        release_date: Date.today - rand(1..365),
+        release_date: Date.today - rand(1..1825),
         runtime: (rand(1..100) * 5).to_s + ' min',
         genre: %w[Action Adventure Science Fiction Fantasy].sample,
         parental_rating: %w[PG-13 NC-17 G R].sample,
