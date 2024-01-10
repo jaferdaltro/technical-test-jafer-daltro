@@ -26,5 +26,16 @@ namespace :populate_movies do
       parental_rating: 'N/A',
       plot: 'Twelve years after exploring Pandora and joining the Na’vi, Jake Sully has since raised a family with Neytiri and established himself within the clans of the new world. Of course, peace can only last so long. Especially when the military organization from the original film returns to “finish what they started”.'
     )
+
+    10.times do
+      Movie.create(
+        title: Faker::Movie.title,
+        release_date: Date.today - rand(1..365),
+        runtime: (rand(1..100) * 5).to_s + ' min',
+        genre: %w[Action Adventure Science Fiction Fantasy].sample,
+        parental_rating: %w[PG-13 NC-17 G R].sample,
+        plot: Faker::Movie.quote
+      )
+    end
   end
 end
