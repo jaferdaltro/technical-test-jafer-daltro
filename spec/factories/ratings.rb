@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :rating do
-    movie
-    grade { "" }
+    movie { create(:movie) }
+    grade { rand(1..5) }
   end
 end
