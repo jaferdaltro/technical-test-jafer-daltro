@@ -12,7 +12,7 @@ gem 'pg', '~> 1.1'
 gem 'puma', '~> 5.0'
 gem 'rails', '~> 6.1.0'
 gem 'redis', '~> 4.0'
-
+gem 'scenic'
 
 group :development, :test do
   gem 'awesome_print'
