@@ -31,7 +31,7 @@ RSpec.describe Movies::API do
 
   describe 'POST /api/v1/movies' do
     it 'returns movie using id' do
-      post "/api/v1/movies", :params => { :title => "Any Name", release_date: Date.yesterday }
+      post "/api/v1/movies", :params => { 'movie': {:title => "Any Name", release_date: Date.yesterday} }
       expect(response).to have_http_status(:created)
       expect(Movie.count).to eq(3)
     end
