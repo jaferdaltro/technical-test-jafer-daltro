@@ -1,75 +1,110 @@
-# About your test
 
-For your technical test, fork this repository and then proceed as mentioned on the problem proposal below. Please feel free to reach out if you have any questions about the proposal!
+# IAFLIX API
 
-# Problem proposal
+Welcome to the IAFLIX API! This API provides endpoints to manage movies.
 
-Welcome to your technical test! Here's the problem you're trying to solve:
+## Frontend
+To interact with the frontend and experience the full application, please visit the [GitHub repository for the frontend](https://github.com/jaferdaltro/iaflix).
 
-Your team was tasked to create a project from scratch that would list upcoming movie releases in Brazil. This project would have:
-- An application with the backend code, written in Ruby on Rails
-- An application with the frontend code, written in a JavaScript framework yet to be decided
 
-## API
+## Getting Started
 
-Your team started working on the API. After some time, you realized that the codebase might need some refactoring, and you were given the opportunity to help! We ask the following things from you:
+### Prerequisites
 
-- Analyze the code from the repository, compare it with the requirements listed below, and check for possible problems and improvement oportunities;
-- Open one or more PRs with your suggestions. You can refactor the code, explaining the reasons for the changes on commit messages or whatever other means you think are more appropriate;
-- You can also add new functionalities if you'd like!
-- Lastly, we want to have some stats from the movies database. Add more movies to the database setup, and then create 5 database views with different stats that we can use to query the database. some ideas of questions that can be answered:
-  - What’s the highest rated movie by genre and parental rating?
-  - Which year had the most movies?
-  - What’s the moving average of ratings over the past two months?
- 
-## UI
+Before you begin, make sure you have the following installed:
 
-After our API is fixed, we can move on to the UI portion of the application. Since nothing for it has been written yet, it's your chance to do it however you want! We ask the following things from you:
+- [Ruby](https://www.ruby-lang.org/en/documentation/installation/)
+- [Ruby on Rails](https://guides.rubyonrails.org/getting_started.html#installing-rails)
+- [Docker](https://docs.docker.com/engine/install/)
 
-- Create a frontend application that will interact with our API and display:
-  - A list of movies
-  - An individual page where we can learn more about each movie
-- The App can be done with whatever frontend framework you prefer, but it needs to be separate from the API
-- Bonus points if you can make components wherever possible 
+### Installation
 
-# Proposed application requirements
+1. Clone the repository:
 
-list upcoming movie releases in Brazil.
+    ```bash
+    git clone git@github.com:jaferdaltro/technical-test-jafer-daltro.git
+    ```
 
-- API written in Ruby on Rails;
-  - All endpoints should return JSON unless specified.
-- UI written in a JavaScript framework of your choice
-  - It needs to get data from our API
-- If you can, deploy your work somewhere so we can see it working
-  - If you can't deploy it, provide a README / guide on how to get your app up and running
+2. Change into the project directory:
 
-## API Endpoints:
+    ```bash
+    cd technical-test-jafer-daltro
+    ```
 
-### GET /movies
-List all movies on a reverse chronological order.
+3. Install dependencies:
 
-Data from the movie that should be shown:
-- title
-- release_date
-- genre
-- runtime
-- parental_rating
-- plot
-- average user ratings (from 1 to 5)
+    ```bash
+    bundle install
+    ```
 
-### GET /movies/:id
-Return information about a particular movie.
+4. Set up the database:
 
-### GET /movies/search?title=
-Search all movies on the database given a searched term.
+    ```bash
+    docker-compose up -d
+    rails db:create db:migrate
+    ```
 
-### POST /movies
-Add a new movie.
+5. Start the Rails server:
 
-### DELETE /movies/:id
-Remove a movie.
+    ```bash
+    rails server
+    ```
 
-### POST /ratings/:movie_id
-Rate a movie.
+The API will be available at `http://localhost:3000`.
 
-WARNING: This is a fictional piece of work. No real codebases were harmed on the production of this test.
+## API Endpoints
+
+### List Movies
+
+- **Endpoint:** `GET /api/v1/movies`
+- **Description:** Retrieve a list of all movies.
+
+### Search Movies
+
+- **Endpoint:** `GET /api/v1/movies/search`
+- **Parameters:**
+  - `title` (optional): Search term for movie titles.
+- **Description:** Search for movies based on the provided title.
+
+### Show Movie Details
+
+- **Endpoint:** `GET /api/v1/movies/:id`
+- **Parameters:**
+  - `id`: Movie ID.
+- **Description:** Retrieve details of a specific movie.
+
+### Create a Movie
+
+- **Endpoint:** `POST /api/v1/movies`
+- **Parameters:**
+  - `title`: Movie title.
+  - `release_date`: Movie release date.
+  - Other optional parameters: `runtime`, `genre`, `parental_rating`, `plot`.
+- **Description:** Create a new movie.
+
+### Delete a Movie
+
+- **Endpoint:** `DELETE /api/v1/movies/:id`
+- **Parameters:**
+  - `id`: Movie ID.
+- **Description:** Delete a specific movie.
+
+### Rate a Movie
+
+- **Endpoint:** `POST /api/v1/ratings/:movie_id`
+- **Parameters:**
+  - `movie_id`: Movie ID.
+  - `grade`: Rate the movie.
+- **Description:** Rate a specific movie.
+
+## Testing
+
+To run tests, use the following command:
+
+```bash
+rails rspec
+```
+
+## Observations
+
+- The front end is in https://github.com/jaferdaltro/iaflix

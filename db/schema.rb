@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_02_033845) do
+ActiveRecord::Schema.define(version: 2024_01_11_121351) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,4 +36,29 @@ ActiveRecord::Schema.define(version: 2021_11_02_033845) do
   end
 
   add_foreign_key "ratings", "movies"
+
+  create_view "views_rated_movie_by_genres", sql_definition: <<-SQL
+      SELECT DISTINCT ON (m.genre) m.genre,
+      m.title AS movie,
+      r.grade
+     FROM (movies m
+       JOIN ratings r ON ((m.id = r.movie_id)))
+    WHERE (((m.genre)::text, r.grade) IN ( SELECT movies.genre,
+              max(ratings.grade) AS max_grade
+             FROM (movies
+               JOIN ratings ON ((movies.id = ratings.movie_id)))
+            GROUP BY movies.genre));
+  SQL
+  create_view "views_rated_movie_by_parentals", sql_definition: <<-SQL
+      SELECT DISTINCT ON (m.parental_rating) m.parental_rating,
+      m.title AS movie,
+      r.grade
+     FROM (movies m
+       JOIN ratings r ON ((m.id = r.movie_id)))
+    WHERE (((m.parental_rating)::text, r.grade) IN ( SELECT movies.parental_rating,
+              max(ratings.grade) AS max_grade
+             FROM (movies
+               JOIN ratings ON ((movies.id = ratings.movie_id)))
+            GROUP BY movies.parental_rating));
+  SQL
 end
