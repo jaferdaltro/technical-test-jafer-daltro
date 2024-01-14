@@ -1,4 +1,4 @@
-# About your test
+# About your test -
 
 For your technical test, fork this repository and then proceed as mentioned on the problem proposal below. Please feel free to reach out if you have any questions about the proposal!
 
