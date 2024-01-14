@@ -7,7 +7,7 @@ module Movies
     resource :movies do
       desc 'returns all movies'
       get do
-        movies = Movie.all
+        movies = Movie.includes(:ratings).order(:release_date).reverse_order
 
         movies.each do |movie|
           if movie.ratings.count == 0
